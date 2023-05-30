@@ -24,7 +24,7 @@ echo "Modules installés avec succès !"
 CURRENT_USER=$(whoami)
 
 # Création du service systemd
-SERVICE_FILE="/etc/systemd/system/my-node-service.service"
+SERVICE_FILE="/etc/systemd/system/node-code.service"
 
 sudo tee $SERVICE_FILE > /dev/null << EOF
 [Unit]
@@ -33,11 +33,11 @@ After=network.target
 
 [Service]
 WorkingDirectory=$(pwd)
-ExecStart=$(which node) server.js
+ExecStart=$(which node) index.js
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=my-node-service
+SyslogIdentifier=node-code
 User=$CURRENT_USER
 
 [Install]
@@ -48,11 +48,11 @@ EOF
 sudo systemctl daemon-reload
 
 # Activation du service
-sudo systemctl enable my-node-service
+sudo systemctl enable node-code
 
 # Démarrage du service
-sudo systemctl start my-node-service
+sudo systemctl start node-code
 
 # Vérification de l'état du service
 echo "Le service est configuré et en cours d'exécution."
-sudo systemctl status my-node-service
+sudo systemctl status node-code
