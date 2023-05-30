@@ -31,7 +31,7 @@ app.post('/statistics', (req, res) => {
   res.json(statistics);
 });
 
-app.post("/hearthbeat", (req, res) => {
+app.post("/heartbeat", (req, res) => {
     const { token } = req.body;
 
     res.json({
